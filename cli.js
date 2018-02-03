@@ -2,7 +2,11 @@
 
 const { readdirSync, statSync, readFileSync } = require('fs')
 const { join } = require('path')
-const { generate } = require('make-editorconfig')
+const {
+	generateConfig,
+	printAttributes,
+	constructTree,
+} = require('make-editorconfig')
 const program = require('commander')
 const match = require('minimatch')
 const { writeFileSync } = require('fs')
@@ -16,6 +20,7 @@ program
 		(val, memo) => (memo.push(...val.split(',')), memo),
 		[]
 	)
+	.option('-d, --debug', 'print debug output')
 	.option('-o, --output <file>', 'Redirect output')
 	.parse(process.argv)
 
@@ -42,17 +47,25 @@ const constructTreeFromDirectory = (paths, ignore = []) => {
 		})
 		return nodes
 	}
-	return generate(
-		flatten([paths.map(walk), paths.map(path => ({ path, content: null }))]),
-		ignore
-	)
+	return constructTree(flatten([paths.map(walk)]), ignore)
 }
 
 if (program.args.length === 0) program.help()
 
+const tree = constructTreeFromDirectory(
+	program.args,
+	program.ignore
+).mergeAttributes(true)
+
+if (program.debug) {
+	console.log('tree dump:')
+	printAttributes(tree, 1)
+	console.log('\n')
+}
+
 const config =
-	'# make-editorconfig-cli\n' +
-	constructTreeFromDirectory(program.args, program.ignore)
+	'# make-editorconfig-cli\n# github.com/fvj/make-editorconfig-cli\n\n' +
+	generateConfig(tree, program.ignore)
 
 if (program.output) {
 	writeFileSync(program.output, config)
