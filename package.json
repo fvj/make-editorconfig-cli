@@ -1,0 +1,15 @@
+{
+	"name": "make-editorconfig-cli",
+	"version": "0.0.1",
+	"main": "index.js",
+	"repository": "git@github.com:fvj/make-editorconfig-cli.git",
+	"author": "Julius von Froreich <fvj@users.noreply.github.com>",
+	"license": "MIT",
+	"private": true,
+	"bin": "./cli.js",
+	"dependencies": {
+		"commander": "^2.13.0",
+		"make-editorconfig": "fvj/make-editorconfig",
+		"minimatch": "^3.0.4"
+	}
+}
