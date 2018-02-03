@@ -52,10 +52,9 @@ const constructTreeFromDirectory = (paths, ignore = []) => {
 
 if (program.args.length === 0) program.help()
 
-const tree = constructTreeFromDirectory(
-	program.args,
-	program.ignore
-).mergeAttributes(true)
+const tree = constructTreeFromDirectory(program.args, program.ignore)
+	.mergeAttributes(true)
+	.clean()
 
 if (program.debug) {
 	console.log('tree dump:')
