@@ -50,7 +50,9 @@ const constructTreeFromDirectory = (paths, ignore = []) => {
 
 if (program.args.length === 0) program.help()
 
-const config = constructTreeFromDirectory(program.args, program.ignore)
+const config =
+	'# make-editorconfig-cli\n' +
+	constructTreeFromDirectory(program.args, program.ignore)
 
 if (program.output) {
 	writeFileSync(program.output, config)
