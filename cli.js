@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const { readdirSync, statSync, readFileSync } = require('fs')
 const { join } = require('path')
 const { generate } = require('make-editorconfig')
