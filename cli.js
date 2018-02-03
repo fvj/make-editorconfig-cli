@@ -47,10 +47,15 @@ const constructTreeFromDirectory = (paths, ignore = []) => {
 		})
 		return nodes
 	}
-	return constructTree(flatten([paths.map(walk)]), ignore)
+	return constructTree(flatten(paths.map(walk)), ignore)
 }
 
 if (program.args.length === 0) program.help()
+
+if (program.debug) {
+	console.log(`ignoring ${program.ignore}`)
+	console.log(`output goes to ${program.output ? program.output : '$stdin'}`)
+}
 
 const tree = constructTreeFromDirectory(program.args, program.ignore)
 	.mergeAttributes(true)
