@@ -48,6 +48,8 @@ const constructTreeFromDirectory = (paths, ignore = []) => {
 	)
 }
 
+if (program.args.length === 0) program.help()
+
 const config = constructTreeFromDirectory(program.args, program.ignore)
 
 if (program.output) {
