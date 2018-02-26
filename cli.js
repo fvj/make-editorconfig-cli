@@ -33,6 +33,9 @@ const flatten = arr =>
 		[]
 	)
 
+const isBinary = content =>
+	content && content.indexOf && content.indexOf('\0') > -1
+
 const constructTreeFromDirectory = (paths, ignore = []) => {
 	const walk = path => {
 		const nodes = []
@@ -43,6 +46,7 @@ const constructTreeFromDirectory = (paths, ignore = []) => {
 			const stats = statSync(childPath)
 			if (stats.isFile(childPath)) {
 				const content = readFileSync(childPath).toString()
+				if (isBinary(content)) return
 				nodes.push({ path: childPath, content })
 			} else if (stats.isDirectory(childPath))
 				nodes.push({ path: childPath, content: null }, ...walk(childPath))
