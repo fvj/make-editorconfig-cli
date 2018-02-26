@@ -89,6 +89,8 @@ if (program.debug) {
 	printAttributes(tree, 1)
 }
 
+if (program.extension) tree.mergeByExtensions()
+
 const config =
 	`# make-editorconfig-cli v${VERSION}\n# github.com/fvj/make-editorconfig-cli\n\n` +
 	generateConfig(tree, program.ignore)
