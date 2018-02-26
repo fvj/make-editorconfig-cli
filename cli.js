@@ -48,9 +48,11 @@ const constructTreeFromDirectory = (paths, ignore = []) => {
 				const content = readFileSync(childPath).toString()
 				if (isBinary(content)) return
 				nodes.push({ path: childPath, content })
-			} else if (stats.isDirectory(childPath))
-				nodes.push({ path: childPath, content: null }, ...walk(childPath))
-			else throw new Error('no idea how to handle file' + childPath)
+			} else if (stats.isDirectory(childPath)) {
+				const children = walk(childPath)
+				if (children.length > 0)
+					nodes.push({ path: childPath, content: null }, ...children)
+			} else throw new Error('no idea how to handle file' + childPath)
 		})
 		return nodes
 	}
