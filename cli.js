@@ -18,12 +18,13 @@ program
 	.usage('[options] <directory>')
 	.option(
 		'-i, --ignore <glob>,[<glob>...]',
-		'Ignore glob(s)',
+		'ignore glob(s)',
 		(val, memo) => (memo.push(...val.split(',')), memo),
 		[]
 	)
 	.option('-d, --debug', 'print debug output')
-	.option('-o, --output <file>', 'Redirect output')
+	.option('-o, --output <file>', 'redirect output')
+	.option('-e, --extension', 'merge by file extension')
 	.parse(process.argv)
 
 const flatten = arr =>
