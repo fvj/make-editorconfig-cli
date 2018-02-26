@@ -11,8 +11,10 @@ const program = require('commander')
 const match = require('minimatch')
 const { writeFileSync } = require('fs')
 
+const VERSION = '0.0.1'
+
 program
-	.version('0.0.1')
+	.version(VERSION)
 	.usage('[options] <directory>')
 	.option(
 		'-i, --ignore <glob>,[<glob>...]',
@@ -68,7 +70,7 @@ if (program.debug) {
 }
 
 const config =
-	'# make-editorconfig-cli\n# github.com/fvj/make-editorconfig-cli\n\n' +
+	`# make-editorconfig-cli v${VERSION}\n# github.com/fvj/make-editorconfig-cli\n\n` +
 	generateConfig(tree, program.ignore)
 
 if (program.output) {
