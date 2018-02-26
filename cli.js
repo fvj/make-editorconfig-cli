@@ -65,13 +65,26 @@ if (program.debug) {
 }
 
 const tree = constructTreeFromDirectory(program.args, program.ignore)
-	.mergeAttributes(true)
-	.clean()
 
 if (program.debug) {
-	console.log('tree dump:')
+	console.log('dirty tree dump:')
 	printAttributes(tree, 1)
 	console.log('\n')
+}
+
+tree.mergeAttributes(true)
+
+if (program.debug) {
+	console.log('merged tree dump:')
+	printAttributes(tree, 1)
+	console.log('\n')
+}
+
+tree.clean()
+
+if (program.debug) {
+	console.log('clean tree dump:')
+	printAttributes(tree, 1)
 }
 
 const config =
