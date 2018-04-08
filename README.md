@@ -42,7 +42,7 @@ an editorconfig given a directory.
 
 Using [facebook/react](https://github.com/facebook/react) as an example:
 
-  ![react editorconfig](example.svg)
+  ![react editorconfig](example.png)
 
 ## Maintainers
 
